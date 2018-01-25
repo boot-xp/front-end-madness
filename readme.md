@@ -11,7 +11,7 @@ you will see example applications built using various frameworks. Each applicati
 
 # Frameworks
 
-* [Angular](./angular-app/readme.md)
-* [Aurelia](./aurelia-app/readme.md)
-* [React](./react-app/readme.md)
-* [Vue](./vue-app/readme.md)
+* [Angular](angular-app/readme.md)
+* [Aurelia](aurelia-app/readme.md)
+* [React](react-app/readme.md)
+* [Vue](vue-app/readme.md)
