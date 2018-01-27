@@ -12,7 +12,7 @@
     "test:single": "npm run test:backend &&  npm run test:angular && npm run test:aurelia && npm run test:react && npm run test:vue",
     "start:angular": "cd ./angular-app && npm start",
     "start:aurelia": "cd ./aurelia-app && npm start",
-    "start:react": "cd ./react-app && npm start",
+    "start:react": "cd ./react-app && yarn start",
     "start:vue": "cd ./vue-app && npm start",
     "start:backend": "cd ./backend && npm start",
     "start": "cross-env NODE_ENV=development concurrently \"npm run start:backend\" \"npm run start:angular\" \"npm run start:aurelia\" \"npm run start:react\" \"npm run start:vue\""
