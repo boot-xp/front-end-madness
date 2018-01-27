@@ -42,6 +42,8 @@ describe('Server', () => {
             const response = await fetch('http://localhost:9000/api/customers');
             const result = await response.json();
             expect(result.items.length).to.eql(1);
+            expect(result.items[0].name).to.eql('Big C');
+            expect(result.items[0].id).to.eql(1);
         })
     })
 
