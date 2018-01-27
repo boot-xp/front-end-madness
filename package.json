@@ -1,0 +1,34 @@
+{
+  "name": "front-end-madness",
+  "version": "0.0.1",
+  "description": "Web front-ends have come a long way in recent years. Currently, there are many popular frameworks to choose from. Here\r you will see example applications built using various frameworks. Each application will contain the same features.",
+  "main": "index.js",
+  "scripts": {
+    "test:angular": "cd ./angular-app && npm run test:single",
+    "test:aurelia": "cd ./aurelia-app && npm run test:single",
+    "test:react": "cd ./react-app && npm run test:single",
+    "test:vue": "cd ./vue-app && npm run test:single",
+    "test:backend": "cd ./backend && npm test",
+    "test:single": "concurrently \"npm run test:backend\" \"npm run test:angular\" \"npm run test:aurelia\" \"npm run test:react\" \"npm run test:vue\"",
+    "start:angular": "cd ./angular-app && npm start",
+    "start:aurelia": "cd ./aurelia-app && npm start",
+    "start:react": "cd ./react-app && npm start",
+    "start:vue": "cd ./vue-app && npm start",
+    "start:backend": "cd ./backend && npm start",
+    "start": "cross-env NODE_ENV=development concurrently \"npm run start:backend\" \"npm run start:angular\" \"npm run start:aurelia\" \"npm run start:react\" \"npm run start:vue\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boot-xp/front-end-madness.git"
+  },
+  "author": "Bryce Klinker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boot-xp/front-end-madness/issues"
+  },
+  "homepage": "https://github.com/boot-xp/front-end-madness#readme",
+  "devDependencies": {
+    "concurrently": "3.5.1",
+    "cross-env": "5.1.3"
+  }
+}
