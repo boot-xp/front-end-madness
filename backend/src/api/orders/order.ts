@@ -3,7 +3,7 @@ import {Address} from "../general/models/address";
 import {OrderLineItem} from "./order-line-item";
 
 export interface Order extends Entity {
-    orderDate?: Date;
+    orderDate?: Date | string;
     customerId?: number;
     deliveryAddress?: Address;
     billingAddress?: Address;

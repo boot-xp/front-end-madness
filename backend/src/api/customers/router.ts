@@ -2,30 +2,31 @@ import * as express from 'express';
 
 import {ServerOptions} from "../../server-options";
 import {getAllCustomers, addCustomer, getCustomer, updateCustomer} from "./repository";
+import {createdResponse} from "../general/routing/created-response";
+import {noContentResponse} from "../general/routing/no-content-response";
+import {jsonResponse} from "../general/routing/json-response";
 
 export function createCustomersRouter(serverOptions: ServerOptions): express.Router {
     const router = express.Router();
     router.get('/customers', async (req, res) => {
-        res.json({ items: await getAllCustomers(serverOptions) });
+        jsonResponse({ items: await getAllCustomers(serverOptions) }, res);
     });
 
     router.get('/customers/:id', async (req, res) => {
         const id = Number(req.params.id);
-        res.json(await getCustomer(id, serverOptions));
+        jsonResponse(await getCustomer(id, serverOptions), res);
     });
 
     router.post('/customers', async (req, res) => {
         const customer = await addCustomer(req.body, serverOptions);
-        res.status(201)
-            .setHeader('Location', `${req.url}/${customer.id}`);
-        res.end();
+        createdResponse(req, res, customer.id, serverOptions);
     });
 
     router.put('/customers/:id', async (req, res) => {
         const id = Number(req.params.id);
         const customer = {...req.body, id: id};
         await updateCustomer(customer, serverOptions);
-        res.status(204).end();
+        noContentResponse(res);
     })
 
     return router;

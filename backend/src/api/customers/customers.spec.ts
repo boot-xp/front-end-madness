@@ -26,6 +26,12 @@ describe('Customers', () => {
         expect(result.items[0].id).to.eql(1);
     })
 
+    it('should get customer', async () => {
+        const response = await postJson('http://localhost:9000/api/customers', { name: 'Big C' });
+        const customer = await getJson<Customer>(response.headers.get('location'));
+        expect(customer.name).to.eql('Big C');
+    })
+
     it('should update customer', async () => {
         const customer = await getJson<ResultList<Customer>>('http://localhost:9000/api/customers')
             .then(res => res.items[0]);

@@ -17,6 +17,7 @@ export async function add<T extends object & Entity>(entity: T, collectionName: 
     const db = await getDb(opts);
     const collection = await getOrAddCollection<T>(collectionName, opts, db);
     const added = collection.insert(entity);
+    added.id = added['$loki'];
     await save(db);
     await close(db);
     return added;
