@@ -1,5 +1,6 @@
 import * as Loki from "lokijs";
 import {ServerOptions} from "../../../server-options";
+import {Entity} from "./entity";
 
 export async function save(db: Loki): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -24,7 +25,6 @@ export async function close(db: Loki): Promise<void> {
 }
 
 export async function getDb(opts: ServerOptions): Promise<Loki> {
-
     return new Promise<Loki>((resolve, reject) => {
         const db = new Loki(opts.storagePath);
         db.loadDatabase(undefined, (err) => {
@@ -36,7 +36,7 @@ export async function getDb(opts: ServerOptions): Promise<Loki> {
     });
 }
 
-export async function getOrAddCollection<T extends object>(name: string, opts: ServerOptions, db: Loki = null): Promise<Loki.Collection<T>> {
+export async function getOrAddCollection<T extends object & Entity>(name: string, opts: ServerOptions, db: Loki = null): Promise<Loki.Collection<T>> {
     db = db || await getDb(opts);
 
     if (!db.collections.find(c => c.name === name))
