@@ -2,18 +2,23 @@ import {ServerOptions} from "../../../server-options";
 import {close, getDb, getOrAddCollection, save} from "./database";
 import {Entity} from "./entity";
 
-export async function getAll<T extends object & Entity>(collectionName: string, opts: ServerOptions): Promise<T[]> {
+export async function getAll<T extends Entity>(collectionName: string, opts: ServerOptions): Promise<T[]> {
     const collection = await getOrAddCollection<T>(collectionName, opts);
     return collection.find()
         .map((obj: any) => ({...obj, 'id': obj.$loki}));
 }
 
-export async function getById<T extends object & Entity>(id: number, collectionName: string, opts: ServerOptions): Promise<T> {
+export async function getById<T extends Entity>(id: number, collectionName: string, opts: ServerOptions): Promise<T> {
     const collection = await getOrAddCollection<T>(collectionName, opts);
     return collection.get(id);
 }
 
-export async function add<T extends object & Entity>(entity: T, collectionName: string, opts: ServerOptions): Promise<T> {
+export async function getWhere<T extends Entity & LokiObj>(query: LokiQuery<T>, collectionName: string, opts: ServerOptions): Promise<T[]> {
+    const collection = await getOrAddCollection<T>(collectionName, opts);
+    return collection.find({})
+}
+
+export async function add<T extends Entity>(entity: T, collectionName: string, opts: ServerOptions): Promise<T> {
     const db = await getDb(opts);
     const collection = await getOrAddCollection<T>(collectionName, opts, db);
     const added = collection.insert(entity);
@@ -23,7 +28,7 @@ export async function add<T extends object & Entity>(entity: T, collectionName: 
     return added;
 }
 
-export async function update<T extends object & Entity>(entity: T, collectionName: string, opts: ServerOptions): Promise<void> {
+export async function update<T extends Entity>(entity: T, collectionName: string, opts: ServerOptions): Promise<void> {
     const db = await getDb(opts);
     const collection = await getOrAddCollection<T>(collectionName, opts, db);
     const existing = collection.get(entity.id);
@@ -33,7 +38,7 @@ export async function update<T extends object & Entity>(entity: T, collectionNam
     await close(db);
 }
 
-function updateProperties<T extends object & Entity>(existing: T, updated: T): void {
+function updateProperties<T extends Entity>(existing: T, updated: T): void {
     for (let key in updated) {
         if (updated.hasOwnProperty(key) && key !== 'id' || key !== '$loki')
             existing[key] = updated[key];

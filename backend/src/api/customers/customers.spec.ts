@@ -4,6 +4,7 @@ import {Customer} from "./customer";
 import {expect} from "chai";
 import * as http from "http";
 import {setupServer, tearDownServer} from "../../../testing/test-server";
+import {Order} from "../orders/order";
 
 describe('Customers', () => {
     let httpServer: http.Server;
@@ -45,6 +46,18 @@ describe('Customers', () => {
 
         const getResponse = await getJson<Customer>(`${baseUrl}/api/customers/${customer.id}`);
         expect(getResponse.name).to.eql('This is a name');
+    })
+
+    it('should get orders for customer', async () => {
+        const response = await postJson(`${baseUrl}/api/customers`, { name: 'Bob' });
+        const customer = await getJson<Customer>(response.headers.get('location'));
+
+        const order: Order = { customerId: customer.id, orderDate: new Date() };
+        await postJson(`${baseUrl}/api/orders`, order);
+        const result = await getJson<ResultList<Order>>(`${response.headers.get('location')}/orders`);
+        expect(result.items.length).to.eql(1);
+        expect(result.items[0].customerId).to.eql(customer.id);
+        expect(result.items[0].orderDate).to.eql((<Date>order.orderDate).toISOString());
     })
 
     after(async () => {
