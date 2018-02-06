@@ -10,7 +10,7 @@ describe('Customers', () => {
   it('should show empty customers', () => {
     page.navigateTo();
 
-    expect(page.getCustomersList().isPresent()).toBe(true);
-    expect(page.getCustomers().count()).toBe(0);
+    expect(page.getCustomersList().isPresent()).toBe(true, 'Customers list is not present on page');
+    expect(page.getCustomers().count()).toBe(0, 'Customers list is not empty');
   })
 })
