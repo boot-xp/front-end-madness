@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { RootComponent } from './root.component';
+import {RootRoutingModule} from "./root-routing.module";
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { RootComponent } from './root.component';
     RootComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RootRoutingModule
   ],
   providers: [],
   bootstrap: [RootComponent]
