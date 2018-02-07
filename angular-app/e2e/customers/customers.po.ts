@@ -6,7 +6,7 @@ export class CustomersPage {
   }
 
   getCustomersList() {
-    return element(by.className('customer-list'));
+    return element(by.className('customers-list'));
   }
 
   getCustomers() {
