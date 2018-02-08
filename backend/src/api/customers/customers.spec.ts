@@ -22,7 +22,7 @@ describe('Customers', () => {
     })
 
     it('should add customer', async () => {
-        await postJson('http://localhost:9000/api/customers', { name: 'Big C' });
+        await postJson(`${baseUrl}/api/customers`, { name: 'Big C' });
         const result = await getJson<ResultList<Customer>>(`${baseUrl}/api/customers`);
 
         expect(result.items.length).to.eql(1);
