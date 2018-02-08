@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "start": "au run --env dev",
     "test": "au test --watch",
     "test:single": "au test"
   },
