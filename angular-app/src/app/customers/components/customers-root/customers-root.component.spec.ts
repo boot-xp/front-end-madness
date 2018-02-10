@@ -3,8 +3,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomersRootComponent } from './customers-root.component';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {MatListModule} from "@angular/material";
+import {By} from "@angular/platform-browser";
+import {Router} from "@angular/router";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('CustomersRootComponent', () => {
+  let router: Router;
   let httpTestingController: HttpTestingController;
   let component: CustomersRootComponent;
   let fixture: ComponentFixture<CustomersRootComponent>;
@@ -14,6 +18,7 @@ describe('CustomersRootComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CustomersRootComponent ],
       imports: [
+        RouterTestingModule.withRoutes([]),
         HttpClientTestingModule,
         MatListModule
       ]
@@ -22,6 +27,7 @@ describe('CustomersRootComponent', () => {
   }));
 
   beforeEach(() => {
+    router = TestBed.get(Router);
     httpTestingController = TestBed.get(HttpTestingController);
 
     fixture = TestBed.createComponent(CustomersRootComponent);
@@ -45,6 +51,22 @@ describe('CustomersRootComponent', () => {
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement.querySelectorAll('.customers-list').length).toBe(1);
       expect(fixture.nativeElement.querySelectorAll('.customer-list-item').length).toBe(2);
+    })
+  }))
+
+  it('should create customer', async(() => {
+    spyOn(router, 'navigateByUrl');
+
+    fixture.detectChanges();
+    const req = httpTestingController.expectOne('http://localhost:5000/api/customers');
+    req.flush({items: []});
+    fixture.detectChanges();
+
+    fixture.debugElement.query(By.css('#createCustomer')).triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+        expect((<any>router.navigateByUrl).calls.mostRecent().args[0].toString()).toBe('/customers/create-customer');
     })
   }))
 

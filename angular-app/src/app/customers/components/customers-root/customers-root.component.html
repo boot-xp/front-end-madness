@@ -1,4 +1,5 @@
 <mat-list class="customers-list">
   <mat-list-item class="customer-list-item" *ngFor="let customer of customers">
   </mat-list-item>
+  <button mat-icon-button id="createCustomer" [routerLink]="'/customers/create-customer'"></button>
 </mat-list>
