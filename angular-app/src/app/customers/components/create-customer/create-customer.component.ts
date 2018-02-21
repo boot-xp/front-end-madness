@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-create-customer',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-customer.component.css']
 })
 export class CreateCustomerComponent implements OnInit {
+  form: FormGroup;
 
-  constructor() { }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      name: ['']
+    })
   }
 
+  save() {
+    const customer = { name: this.form.value.name };
+    this.http.post('http://localhost:5000/customers', customer)
+      .subscribe(() => {});
+  }
 }

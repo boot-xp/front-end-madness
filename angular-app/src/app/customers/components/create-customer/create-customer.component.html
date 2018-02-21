@@ -1,3 +1,7 @@
-<p>
-  create-customer works!
-</p>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field>
+    <input matInput placeholder="Customer Name" formControlName="name" id="name" name="name">
+  </mat-form-field>
+
+  <button id="createCustomer" mat-button type="submit" (click)="save()"></button>
+</form>
