@@ -20,7 +20,7 @@ export class CreateCustomerComponent implements OnInit {
 
   save() {
     const customer = { name: this.form.value.name };
-    this.http.post('http://localhost:5000/customers', customer)
+    this.http.post('http://localhost:5000/api/customers', customer)
       .subscribe(() => {});
   }
 }

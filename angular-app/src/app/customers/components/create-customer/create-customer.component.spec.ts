@@ -40,7 +40,7 @@ describe('CreateCustomerComponent', () => {
 
     fixture.debugElement.query(By.css('#createCustomer')).triggerEventHandler('click', null);
 
-    const req = httpTestingController.expectOne('http://localhost:5000/customers');
+    const req = httpTestingController.expectOne('http://localhost:5000/api/customers');
     fixture.whenStable().then(() => {
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({ name: 'The Name' });
