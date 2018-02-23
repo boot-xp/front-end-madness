@@ -4,13 +4,9 @@ import {CustomersRootComponent} from "./components/customers-root/customers-root
 import {CreateCustomerComponent} from "./components/create-customer/create-customer.component";
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CustomersRootComponent,
-    children: [
-      { path: 'create-customer', component: CreateCustomerComponent }
-    ]
-  }
+  { path: '', component: CustomersRootComponent },
+  { path: 'create-customer', component: CreateCustomerComponent }
+
 ];
 
 @NgModule({

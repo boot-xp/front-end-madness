@@ -70,6 +70,18 @@ describe('CustomersRootComponent', () => {
     })
   }))
 
+  it('should show customer name', async(() => {
+    fixture.detectChanges();
+
+    const req = httpTestingController.expectOne('http://localhost:5000/api/customers');
+    req.flush({items: [{ name: 'Hello' }] });
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(fixture.debugElement.query(By.css('.customer-list-item')).nativeElement.textContent).toContain('Hello');
+    })
+  }))
+
   afterEach(() => {
     httpTestingController.verify();
   })
