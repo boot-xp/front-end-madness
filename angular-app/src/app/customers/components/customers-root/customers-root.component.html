@@ -1,11 +1,13 @@
-<div>
-  <div>
-    <mat-list class="customers-list">
+<div fxLayout="row" fxFill>
+  <div fxFlex fxLayout="column">
+    <mat-list class="customers-list" fxFlex>
       <mat-list-item class="customer-list-item" *ngFor="let customer of customers">
         {{customer.name}}
       </mat-list-item>
-      <button mat-icon-button id="createCustomer" [routerLink]="'/customers/create-customer'"></button>
     </mat-list>
+    <button mat-fab id="createCustomer" [routerLink]="'/customers/create-customer'">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
   <div>
     <router-outlet></router-outlet>

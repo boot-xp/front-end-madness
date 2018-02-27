@@ -1,7 +1,16 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <mat-form-field>
-    <input matInput placeholder="Customer Name" formControlName="name" id="name" name="name">
-  </mat-form-field>
+<mat-card fxFlex>
+  <mat-card-title>
+    <h3>Create Customer</h3>
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="save()" fxLayout="column" fxLayoutAlign="start start" fxFlex="33">
+      <mat-form-field>
+        <input matInput placeholder="Customer Name" formControlName="name" id="name" name="name">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button id="createCustomer" mat-button color="primary" type="submit" (click)="save()">Save</button>
+  </mat-card-actions>
+</mat-card>
 
-  <button id="createCustomer" mat-button type="submit" (click)="save()"></button>
-</form>
